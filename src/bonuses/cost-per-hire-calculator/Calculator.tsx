@@ -1,5 +1,7 @@
 "use client";
 import { useMemo, useState } from "react";
+import Link from "next/link";
+import { CONSENT_TEXT } from "@/lib/consent";
 
 const CUR: [string, string, string][] = [
   ["INR", "en-IN", "INR (₹)"], ["USD", "en-US", "USD ($)"], ["EUR", "de-DE", "EUR (€)"], ["GBP", "en-GB", "GBP (£)"],
@@ -17,6 +19,9 @@ export default function Calculator() {
   const [email, setEmail] = useState("");
   const [hp, setHp] = useState("");
   const [st, setSt] = useState<"idle" | "sending" | "done" | "error">("idle");
+  const [cp, setCp] = useState(false);
+  const [cm, setCm] = useState(false);
+  const [msg, setMsg] = useState("");
   const set = (k: string) => (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) =>
     setS({ ...s, [k]: k === "cur" ? e.target.value : Math.max(0, Number(e.target.value) || 0) });
 
@@ -35,8 +40,9 @@ export default function Calculator() {
     e.preventDefault();
     setSt("sending");
     try {
-      const res = await fetch("/api/lead", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ email, bonus: "cost-per-hire-calculator", website: hp }) });
-      setSt(res.ok ? "done" : "error");
+      const res = await fetch("/api/lead", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ email, bonus: "cost-per-hire-calculator", website: hp, consentProcessing: cp, consentMarketing: cm, path: window.location.pathname }) });
+      const j = await res.json().catch(() => ({}));
+      if (res.ok) setSt("done"); else { setMsg(j.error === "consent required" ? "Please tick the required consent box." : "Something went wrong. Please try again."); setSt("error"); }
     } catch { setSt("error"); }
   }
 
@@ -79,8 +85,10 @@ export default function Calculator() {
           <form onSubmit={unlock}>
             <input type="email" required placeholder="you@company.com" aria-label="Work email" value={email} onChange={(e) => setEmail(e.target.value)} />
             <input className="hp" tabIndex={-1} autoComplete="off" aria-hidden="true" name="website" value={hp} onChange={(e) => setHp(e.target.value)} />
+            <label className="check"><input type="checkbox" required checked={cp} onChange={(e) => setCp(e.target.checked)} /><span>{CONSENT_TEXT.DATA_PROCESSING} <Link href="/privacy" target="_blank">Privacy Policy</Link> (required)</span></label>
+            <label className="check"><input type="checkbox" checked={cm} onChange={(e) => setCm(e.target.checked)} /><span>{CONSENT_TEXT.MARKETING_EMAILS} (optional)</span></label>
             <button className="btn" disabled={st === "sending"}>{st === "sending" ? "Unlocking..." : "Unlock 5 ways to cut this cost"}</button>
-            {st === "error" && <p className="hint" role="alert">Something went wrong. Please try again.</p>}
+            {st === "error" && <p className="hint" role="alert">{msg}</p>}
           </form>
         )}
       </section>

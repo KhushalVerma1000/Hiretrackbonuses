@@ -1,0 +1,54 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+/// One row per person (unique email). Never deleted by app code on re-submit.
+model Lead {
+  id        String        @id @default(cuid())
+  email     String        @unique
+  createdAt DateTime      @default(now())
+  updatedAt DateTime      @updatedAt
+  signups   BonusSignup[]
+  consents  Consent[]
+}
+
+/// Which bonus a lead unlocked, and when. One row per (lead, bonus).
+model BonusSignup {
+  id        String   @id @default(cuid())
+  leadId    String
+  lead      Lead     @relation(fields: [leadId], references: [id], onDelete: Cascade)
+  bonusSlug String
+  createdAt DateTime @default(now())
+
+  @@unique([leadId, bonusSlug])
+  @@index([bonusSlug])
+}
+
+enum ConsentType {
+  DATA_PROCESSING // required: store my email and send me this tool's content
+  MARKETING_EMAILS // optional: send me tips and product updates
+}
+
+/// Append-only consent log. A new row is written every time consent is given or changed,
+/// so you can prove what the person agreed to, when, and under which policy version.
+model Consent {
+  id            String      @id @default(cuid())
+  leadId        String
+  lead          Lead        @relation(fields: [leadId], references: [id], onDelete: Cascade)
+  type          ConsentType
+  granted       Boolean
+  policyVersion String
+  consentText   String      // exact wording shown next to the checkbox
+  bonusSlug     String
+  sourcePath    String?     // page where consent was given
+  ipHash        String?     // salted SHA-256, never the raw IP
+  userAgent     String?
+  createdAt     DateTime    @default(now())
+
+  @@index([leadId, type, createdAt])
+}

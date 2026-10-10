@@ -36,3 +36,4 @@ table{width:100%;border-collapse:collapse;font-size:.9rem;margin-top:8px}td{padd
 .crumbs{font-size:.85rem;color:var(--mut);margin-bottom:12px}
 .share{margin:24px 0}
 footer{border-top:3px solid var(--line);padding:20px 0;color:var(--mut);font-size:.85rem}
+.check{display:flex;gap:8px;align-items:flex-start;font-weight:400;font-size:.8rem;margin:10px 0 0}.check input{width:auto;margin-top:3px;flex:none}

@@ -18,6 +18,6 @@ Every bonus is one folder in `src/bonuses/<slug>/` plus one line in `src/bonuses
 ## Rules
 - Use only numbers the visitor enters. Do not invent statistics or benchmarks.
 - Anything about law or country rules must say "confirm with local counsel".
-- Lead capture: call `/api/lead` with `{ email, bonus: "<slug>", website: "" }` (the empty `website` field is the spam honeypot).
+- Lead capture: reuse the form pattern from `cost-per-hire-calculator/Calculator.tsx`. POST to `/api/lead` with `{ email, bonus: "<slug>", website: "", consentProcessing: true, consentMarketing: <bool>, path }`. Consent text comes from `src/lib/consent.ts`; the required box must be ticked or nothing is stored. `website` is the spam honeypot.
 - Keep one H1 per page, descriptive link text, and labels on every input.
 - Share link for a bonus: `${NEXT_PUBLIC_SITE_URL}/bonuses/<slug>`.
