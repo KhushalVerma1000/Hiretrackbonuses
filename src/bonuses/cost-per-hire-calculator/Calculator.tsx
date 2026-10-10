@@ -2,6 +2,7 @@
 import { useMemo, useState } from "react";
 import Link from "next/link";
 import { CONSENT_TEXT } from "@/lib/consent";
+import { ROLES } from "./toolkit-data";
 
 const CUR: [string, string, string][] = [
   ["INR", "en-IN", "INR (₹)"], ["USD", "en-US", "USD ($)"], ["EUR", "de-DE", "EUR (€)"], ["GBP", "en-GB", "GBP (£)"],
@@ -19,6 +20,8 @@ export default function Calculator() {
   const [email, setEmail] = useState("");
   const [hp, setHp] = useState("");
   const [st, setSt] = useState<"idle" | "sending" | "done" | "error">("idle");
+  const [role, setRole] = useState("custom");
+  const applyRole = (id: string) => { setRole(id); const r = ROLES.find((x) => x.id === id); if (r) setS((p) => ({ ...p, vm: r.vm, days: r.days, hrs: r.hrs })); };
   const [cp, setCp] = useState(false);
   const [cm, setCm] = useState(false);
   const [msg, setMsg] = useState("");
@@ -52,6 +55,9 @@ export default function Calculator() {
         <h2>1. Your numbers</h2>
         <label htmlFor="cur">Currency</label>
         <select id="cur" value={s.cur} onChange={set("cur")}>{CUR.map((c) => <option key={c[0]} value={c[0]}>{c[2]}</option>)}</select>
+        <label htmlFor="role">Role type (loads a starting point)</label>
+        <select id="role" value={role} onChange={(e) => applyRole(e.target.value)}><option value="custom">Custom (my own numbers)</option>{ROLES.map((r) => <option key={r.id} value={r.id}>{r.label}</option>)}</select>
+        <p className="hint">Starting points are planning assumptions, not statistics. Change any value.</p>
         <div className="row">
           {FIELDS.map(([k, label]) => (
             <div key={k}><label htmlFor={k}>{label}</label><input id={k} type="number" min={0} step={k === "vm" ? 0.1 : 1} value={(s as any)[k]} onChange={set(k)} /></div>

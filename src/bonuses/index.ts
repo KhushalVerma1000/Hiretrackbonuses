@@ -2,12 +2,13 @@ import type { ComponentType } from "react";
 import type { BonusMeta } from "@/lib/types";
 import { meta as costPerHire } from "./cost-per-hire-calculator/meta";
 import CostPerHire from "./cost-per-hire-calculator/Calculator";
+import CostPerHireToolkit from "./cost-per-hire-calculator/Toolkit";
 
-export type Bonus = { meta: BonusMeta; Component: ComponentType };
+export type Bonus = { meta: BonusMeta; Component: ComponentType; Extra?: ComponentType }; // Extra = server-rendered toolkit/reference section
 
 // ADD NEW BONUSES HERE: import its meta + component, then add one line below.
 export const bonuses: Bonus[] = [
-  { meta: costPerHire, Component: CostPerHire },
+  { meta: costPerHire, Component: CostPerHire, Extra: CostPerHireToolkit },
 ];
 
 export const getBonus = (slug: string) => bonuses.find((b) => b.meta.slug === slug);

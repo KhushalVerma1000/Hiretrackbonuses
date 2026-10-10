@@ -37,3 +37,29 @@ What's your cost per hire, and do you actually track it?
 Source: SHRM 2026 Recruiting Benchmarking (US employers, US dollars).
 
 #Hiring #HR #Recruitment #TalentAcquisition #HRTech #HireTrack
+
+## Toolkit teaser (second post, a few days later)
+Instagram carousel (6 slides):
+1. Hiring a salesperson vs an intern? The cost of an empty seat is NOT the same. 🧾
+2. Agency fees: typically 15-25% of first-year salary (contingency). Senior searches run higher.
+3. Rule of thumb: an employee's full first-year cost is often ~1.25-1.4x base salary.
+4. Our free calculator has a cheat sheet by role type, formulas, a glossary and a monthly metrics checklist.
+5. Everything in one page. No more tab-hopping.
+6. Link in bio → HireTrack Cost-per-Hire Calculator + Toolkit 🧮
+
+LinkedIn:
+Stop opening five tabs to price one hire.
+
+We added a toolkit to our free cost-per-hire calculator:
+• Starting points by role type (value factor, days open, typical agency fee range)
+• The formulas: cost per hire, vacancy cost, bad-hire cost
+• What counts as internal vs external hiring cost
+• A glossary and a monthly hiring-metrics checklist
+
+The role-type numbers are planning assumptions you can overwrite, and every published figure links to its source.
+
+🔗 {{LINK}}
+
+What's the one hiring metric you wish your team tracked?
+
+#Hiring #Recruitment #HR #TalentAcquisition #HireTrack

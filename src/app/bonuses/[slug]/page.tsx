@@ -25,7 +25,7 @@ export async function generateMetadata({ params }: P): Promise<Metadata> {
 export default async function BonusPage({ params }: P) {
   const b = getBonus((await params).slug);
   if (!b) notFound();
-  const { meta: m, Component } = b, url = abs(`/bonuses/${m.slug}`);
+  const { meta: m, Component, Extra } = b, url = abs(`/bonuses/${m.slug}`);
   const others = bonuses.filter((x) => x.meta.slug !== m.slug);
   return (
     <>
@@ -36,6 +36,7 @@ export default async function BonusPage({ params }: P) {
       <h1>{m.h1}</h1>
       <p className="lead">{m.intro}</p>
       <Component />
+      {Extra && <Extra />}
       {m.benchmarks && (
         <section className="card" style={{ marginTop: 24 }} aria-label="Industry benchmarks">
           <h2>Industry benchmarks for context</h2>

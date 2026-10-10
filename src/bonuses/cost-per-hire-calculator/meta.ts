@@ -13,6 +13,7 @@ export const meta: BonusMeta = {
     { q: "How is cost per hire calculated?", a: "Add the direct costs of filling a role (agency fees, internal recruiter time, job ads and tools), then add onboarding costs and the cost of the vacancy while the role is open. This calculator does that from your own inputs." },
     { q: "What is vacancy cost?", a: "Vacancy cost is the value lost while a role is empty. Here it is estimated as the role's daily salary multiplied by the days the role stays open and a value factor you set." },
     { q: "How is the cost of a bad hire estimated?", a: "It combines the cost of hiring again with the salary paid for the unproductive part of the months the person stayed. You choose the months and the unproductive share." },
+    { q: "What value factor should I use for a role?", a: "The value factor is how much the role produces compared with its salary. Divide the annual value the role produces by its annual salary. Use 1 if unsure. The toolkit below lists starting points by role type, which are planning assumptions you should replace with your own data." },
     { q: "Does this calculator use industry statistics?", a: "The calculation uses only the numbers you enter. The page also lists published benchmarks, with sources, so you can see how your result compares. Most published figures are US medians in US dollars." },
   ],
   datePublished: "2026-10-10",

@@ -15,6 +15,9 @@ Every bonus is one folder in `src/bonuses/<slug>/` plus one line in `src/bonuses
 6. Update `CHECKLIST.md`.
 7. Run `npm run build`. Fix any errors.
 
+## Toolkit (standard for every bonus)
+Each bonus should be self-contained: add a server-rendered `Toolkit.tsx` (registered as `Extra` in `src/bonuses/index.ts`) with reference tables, formulas, glossary and a checklist, so visitors never need to leave the page. Mark planning assumptions as assumptions and attach a source link to every published figure.
+
 ## Rules
 - Calculations use only numbers the visitor enters. Published statistics may be shown for context in `benchmarks`, but every one needs a named source, a year, a working link, and a region/currency label. Prefer primary sources, flag secondary ones, and never repeat a figure whose origin you cannot verify.
 - Anything about law or country rules must say "confirm with local counsel".
