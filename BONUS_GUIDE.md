@@ -16,7 +16,7 @@ Every bonus is one folder in `src/bonuses/<slug>/` plus one line in `src/bonuses
 7. Run `npm run build`. Fix any errors.
 
 ## Rules
-- Use only numbers the visitor enters. Do not invent statistics or benchmarks.
+- Calculations use only numbers the visitor enters. Published statistics may be shown for context in `benchmarks`, but every one needs a named source, a year, a working link, and a region/currency label. Prefer primary sources, flag secondary ones, and never repeat a figure whose origin you cannot verify.
 - Anything about law or country rules must say "confirm with local counsel".
 - Lead capture: reuse the form pattern from `cost-per-hire-calculator/Calculator.tsx`. POST to `/api/lead` with `{ email, bonus: "<slug>", website: "", consentProcessing: true, consentMarketing: <bool>, path }`. Consent text comes from `src/lib/consent.ts`; the required box must be ticked or nothing is stored. `website` is the spam honeypot.
 - Keep one H1 per page, descriptive link text, and labels on every input.

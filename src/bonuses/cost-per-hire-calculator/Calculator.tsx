@@ -33,7 +33,7 @@ export default function Calculator() {
     const total = direct + s.onb + vac;
     const bad = direct + vac + ((s.sal / 12) * s.mo * Math.min(s.un, 100)) / 100;
     const parts: [string, number, string][] = [["Agency fee", agency, "#f27d72"], ["Internal time", internal, "#f3b45a"], ["Ads and tools", s.ads, "#6fb7e9"], ["Onboarding", s.onb, "#7fcf8e"], ["Vacant seat", vac, "#b58de0"]];
-    return { f, total, bad, parts };
+    return { f, total, bad, parts, direct };
   }, [s]);
 
   async function unlock(e: React.FormEvent) {
@@ -70,6 +70,9 @@ export default function Calculator() {
         <div className="big">{r.f(r.total)}</div>
         <div className="stack">{r.parts.map((p) => <i key={p[0]} style={{ width: `${r.total ? (p[1] / r.total) * 100 : 0}%`, background: p[2] }} />)}</div>
         <table><tbody>{r.parts.map((p) => <tr key={p[0]}><td><span className="dot" style={{ background: p[2] }} />{p[0]}</td><td>{r.f(p[1])}</td></tr>)}</tbody></table>
+        {s.cur === "USD"
+          ? <p className="hint">Your direct cost per hire (agency fee + internal time + ads) is {r.f(r.direct)}. SHRM&apos;s 2026 US medians are $1,300 for non-executive and $15,000 for executive roles. Definitions differ, so treat this as a rough guide.</p>
+          : <p className="hint">Published benchmarks below are in US dollars. Convert your direct cost per hire ({r.f(r.direct)}) at today&apos;s rate to compare.</p>}
         <div className="bad"><b>If this hire leaves early, one bad hire costs about</b><div className="big small">{r.f(r.bad)}</div>
           <p className="hint">Includes hiring again plus the salary paid for unproductive months.</p></div>
         <h2 style={{ marginTop: 16 }}>3. Get the full breakdown</h2>

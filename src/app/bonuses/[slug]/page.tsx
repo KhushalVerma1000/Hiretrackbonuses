@@ -36,6 +36,19 @@ export default async function BonusPage({ params }: P) {
       <h1>{m.h1}</h1>
       <p className="lead">{m.intro}</p>
       <Component />
+      {m.benchmarks && (
+        <section className="card" style={{ marginTop: 24 }} aria-label="Industry benchmarks">
+          <h2>Industry benchmarks for context</h2>
+          <p className="hint">Published figures, mostly from US employers and in US dollars. Your own numbers drive the calculator above.</p>
+          <div className="bench">
+            {m.benchmarks.map((x) => (
+              <div key={x.label}><div className="big small">{x.value}</div><b>{x.label}</b>
+                <p className="hint">{x.detail} <a href={x.url} target="_blank" rel="noopener noreferrer">{x.source}</a>, {x.year}.</p></div>
+            ))}
+          </div>
+          {m.benchmarkNote && <p className="hint">{m.benchmarkNote}</p>}
+        </section>
+      )}
       <ShareBar url={url} text={`${m.title} (free): ${m.h1}`} />
       <section className="faq card" aria-label="Frequently asked questions">
         <h2>Frequently asked questions</h2>

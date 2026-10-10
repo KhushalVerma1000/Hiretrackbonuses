@@ -13,7 +13,15 @@ export const meta: BonusMeta = {
     { q: "How is cost per hire calculated?", a: "Add the direct costs of filling a role (agency fees, internal recruiter time, job ads and tools), then add onboarding costs and the cost of the vacancy while the role is open. This calculator does that from your own inputs." },
     { q: "What is vacancy cost?", a: "Vacancy cost is the value lost while a role is empty. Here it is estimated as the role's daily salary multiplied by the days the role stays open and a value factor you set." },
     { q: "How is the cost of a bad hire estimated?", a: "It combines the cost of hiring again with the salary paid for the unproductive part of the months the person stayed. You choose the months and the unproductive share." },
-    { q: "Does this calculator use industry statistics?", a: "No. Every figure comes from the inputs you enter, so you can re-run it with real data from your own process." },
+    { q: "Does this calculator use industry statistics?", a: "The calculation uses only the numbers you enter. The page also lists published benchmarks, with sources, so you can see how your result compares. Most published figures are US medians in US dollars." },
   ],
   datePublished: "2026-10-10",
+  benchmarks: [
+    { value: "$1,300", label: "Median cost per hire, non-executive roles", detail: "Up slightly from $1,200 in 2025.", source: "SHRM 2026 Recruiting Benchmarking", url: "https://www.shrm.org/topics-tools/research/recruiting-benchmarking/full-data-brief", year: 2026 },
+    { value: "$15,000", label: "Median cost per hire, executive roles", detail: "Up from $10,600 in 2025 and $5,000 in 2017.", source: "SHRM 2026 Recruiting Benchmarking", url: "https://www.shrm.org/topics-tools/research/recruiting-benchmarking/full-data-brief", year: 2026 },
+    { value: "+67%", label: "Rise in requisitions per recruiter at extra-large organizations", detail: "Recruiters are carrying heavier workloads.", source: "SHRM 2026 Recruiting Benchmarking", url: "https://www.shrm.org/topics-tools/research/recruiting-benchmarking", year: 2026 },
+    { value: "97%", label: "Median share of non-executive roles filled externally", detail: "Up from 93% in 2025.", source: "SHRM 2026 Recruiting Benchmarking", url: "https://www.shrm.org/topics-tools/research/recruiting-benchmarking", year: 2026 },
+    { value: "39 days", label: "Median time to fill, non-executive roles", detail: "SHRM 2026 benchmark, as reported by a secondary source.", source: "Stealth Agents summary of SHRM data", url: "https://stealthagents.com/research/cost-per-hire-statistics-2026", year: 2026 },
+  ],
+  benchmarkNote: "These figures are medians from US employers, in US dollars. Averages are higher because a few expensive hires pull them up, and definitions of cost per hire differ between studies. There is no single official cost of a bad hire: you will often see about 30% of first-year earnings (usually attributed to the US Department of Labor, though the original source is hard to verify) or 50% to 200% of salary for replacing an employee (attributed to SHRM, an older estimate). Treat these as rough planning ranges and rely on your own inputs above.",
 };

@@ -1,4 +1,5 @@
 export type Faq = { q: string; a: string };
+export type Benchmark = { value: string; label: string; detail: string; source: string; url: string; year: number };
 export type BonusMeta = {
   slug: string;
   emoji: string;
@@ -11,4 +12,6 @@ export type BonusMeta = {
   intro: string;        // crawlable paragraph shown above the tool
   faq: Faq[];           // rendered on the page and as FAQPage JSON-LD
   datePublished: string; // YYYY-MM-DD
+  benchmarks?: Benchmark[]; // published stats shown for context only (always with source, year, link)
+  benchmarkNote?: string;
 };

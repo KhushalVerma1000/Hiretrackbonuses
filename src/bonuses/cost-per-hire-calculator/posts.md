@@ -1,36 +1,39 @@
 # Social posts: Cost-per-Hire Calculator
+Replace {{LINK}} with the live page URL (e.g. https://YOUR-DOMAIN/bonuses/cost-per-hire-calculator).
+Stats: SHRM 2026 Recruiting Benchmarking (US medians, USD). Re-check the SHRM page before posting; figures update yearly.
 
-## Instagram (carousel, 6 slides)
+## Instagram (carousel, 7 slides)
 1. What does ONE hire really cost you? 🤔
-2. Most teams only count the agency fee.
-3. They forget internal hours, job ads, onboarding... and the empty seat costing you every single day.
-4. And if the hire leaves in 4 months? You pay it all again.
-5. So we built a free calculator. Put in YOUR numbers. See YOUR real cost.
-6. Link in bio → free Cost-per-Hire Calculator 🧮
+2. SHRM's 2026 data: median cost per hire is about $1,300 for regular roles and $15,000 for executives (US).
+3. But that's only recruiting spend. It leaves out the empty seat and the cost of a hire that doesn't last.
+4. And recruiters are busier: requisitions per recruiter at very large companies are up 67% in 2026.
+5. Your cost isn't the industry's cost. So we built a free calculator that uses YOUR numbers.
+6. Any currency. Takes 60 seconds. Shows your bad-hire cost too.
+7. Link in bio → free Cost-per-Hire Calculator 🧮
 
 Caption:
-Hiring isn't just a salary line. 💸 The agency fee is the visible part. The hidden part is the time, the tools, the training, and every day the role stays empty. We made a free calculator that uses your numbers, not generic averages. Takes 60 seconds. Works in any currency. 🌍 Link in bio. Save this for your next hiring plan. 📌
+Hiring isn't just a salary line. 💸 SHRM's 2026 benchmarking puts the US median cost per hire at roughly $1,300 for non-executive roles and $15,000 for executives. But your real cost also includes the empty seat, onboarding, and a hire that leaves early. We made a free calculator that uses your own numbers and works in any currency. 🌍 Link in bio. Save this for your next hiring plan. 📌
+Source: SHRM 2026 Recruiting Benchmarking (US medians, USD).
 
 Hashtags: #HiringTips #Recruitment #HRTech #HRLife #Recruiter #StartupHiring #TalentAcquisition #B2BSaaS #HireTrack
 
 ## LinkedIn
 What does one hire actually cost you?
 
-Most teams answer with the agency fee. But that's only one line of the bill.
+SHRM's 2026 benchmarking puts the US median cost per hire at about $1,300 for non-executive roles and $15,000 for executives. Executive cost has climbed from $10,600 in 2025.
 
-The full cost usually includes:
-• Internal time spent sourcing, screening and interviewing
-• Job ads and tools
-• Onboarding and training
-• Every day the seat stays empty
-• And if the hire leaves early, all of it again
+Two things that number leaves out:
+• The seat sits empty while you hire
+• If the hire doesn't work out, you pay for the process twice
 
-We built a free calculator so you can see your own number. It uses only the figures you enter, works in 8 currencies, and shows what one bad hire could cost.
+Meanwhile, requisitions per recruiter at extra-large organizations rose 67% in 2026. Heavier workloads make stalled roles and slow follow-ups more likely.
 
-Try it with a role you're hiring for right now.
+Benchmarks are a starting point, though. Your agency fees, salaries and currency are different. So we built a free calculator that uses only the numbers you enter, shows your own cost per hire, and estimates what one bad hire could cost.
 
 🔗 {{LINK}}
 
-What's the most expensive hire you've had to redo?
+What's your cost per hire, and do you actually track it?
+
+Source: SHRM 2026 Recruiting Benchmarking (US employers, US dollars).
 
 #Hiring #HR #Recruitment #TalentAcquisition #HRTech #HireTrack
