@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { bonuses, getBonus } from "@/bonuses";
-import { SITE, abs } from "@/lib/site";
+import { SITE, abs, productLink } from "@/lib/site";
 import JsonLd from "@/components/JsonLd";
 import ShareBar from "@/components/ShareBar";
 
@@ -35,8 +35,14 @@ export default async function BonusPage({ params }: P) {
       <p className="crumbs"><Link href="/">Bonuses</Link> / {m.title}</p>
       <h1>{m.h1}</h1>
       <p className="lead">{m.intro}</p>
-      <Component />
+      <p><a className="btn alt" href="#tool">Use the free {m.format.toLowerCase()} ↓</a></p>
+      <div id="tool"><Component /></div>
       {Extra && <Extra />}
+      <section className="card" style={{ marginTop: 24 }} aria-label="Next step">
+        <h2>{m.bridge.heading}</h2>
+        <p>{m.bridge.body}</p>
+        <a className="btn" href={productLink(m.slug, "bridge")} target="_blank" rel="noopener">{m.bridge.cta}</a>
+      </section>
       {m.benchmarks && (
         <section className="card" style={{ marginTop: 24 }} aria-label="Industry benchmarks">
           <h2>Industry benchmarks for context</h2>
@@ -59,7 +65,7 @@ export default async function BonusPage({ params }: P) {
         <section style={{ marginTop: 24 }}><h2>More free tools</h2>
           <div className="cards">{others.map((o) => <Link key={o.meta.slug} href={`/bonuses/${o.meta.slug}`} className="card"><div className="emoji" aria-hidden="true">{o.meta.emoji}</div><h2>{o.meta.title}</h2><p>{o.meta.description}</p></Link>)}</div></section>
       )}
-      <p style={{ marginTop: 24 }}><a className="btn" href={SITE.productUrl} target="_blank" rel="noopener">Track every hire in HireTrack</a></p>
+      <p style={{ marginTop: 24 }}><a className="btn" href={productLink(m.slug, "footer")} target="_blank" rel="noopener">Track every hire in HireTrack</a></p>
     </>
   );
 }

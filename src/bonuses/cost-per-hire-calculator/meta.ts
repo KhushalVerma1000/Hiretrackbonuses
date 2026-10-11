@@ -17,6 +17,19 @@ export const meta: BonusMeta = {
     { q: "Does this calculator use industry statistics?", a: "The calculation uses only the numbers you enter. The page also lists published benchmarks, with sources, so you can see how your result compares. Most published figures are US medians in US dollars." },
   ],
   datePublished: "2026-10-10",
+  type: "reveals-problem",
+  problem: "HR teams and agencies do not know the true cost of filling one role, because they count only the agency fee.",
+  headlines: [
+    "What does one hire really cost?",
+    "Your cost per hire is higher than you think: check it in 60 seconds",
+    "What does one hire really cost you? Find out in 60 seconds",
+  ],
+  formats: ["Web calculator", "CSV download", "Print or save as PDF"],
+  bridge: {
+    heading: "Know your number? Now find where it leaks.",
+    body: "Cost per hire grows fastest when roles stall, follow-ups slip and nobody can see where candidates drop off. HireTrack tracks every candidate stage, sets goals per role and recruiter, and shows which roles are costing you the most days.",
+    cta: "See how HireTrack tracks every hire",
+  },
   benchmarks: [
     { value: "$1,300", label: "Median cost per hire, non-executive roles", detail: "Up slightly from $1,200 in 2025.", source: "SHRM 2026 Recruiting Benchmarking", url: "https://www.shrm.org/topics-tools/research/recruiting-benchmarking/full-data-brief", year: 2026 },
     { value: "$15,000", label: "Median cost per hire, executive roles", detail: "Up from $10,600 in 2025 and $5,000 in 2017.", source: "SHRM 2026 Recruiting Benchmarking", url: "https://www.shrm.org/topics-tools/research/recruiting-benchmarking/full-data-brief", year: 2026 },

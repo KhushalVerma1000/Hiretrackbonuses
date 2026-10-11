@@ -1,0 +1,273 @@
+diff --git a/BONUS_GUIDE.md b/BONUS_GUIDE.md
+index a14283e..c7ed542 100644
+--- a/BONUS_GUIDE.md
++++ b/BONUS_GUIDE.md
+@@ -2,22 +2,39 @@
+ 
+ Every bonus is one folder in `src/bonuses/<slug>/` plus one line in `src/bonuses/index.ts`. The page, share links, SEO tags, sitemap entry, Open Graph image and FAQ schema are generated automatically.
+ 
++## Before you build: design the lead magnet (Hormozi $100M Leads)
++A lead magnet is a complete solution to one narrow problem that reveals the next problem HireTrack solves. Answer these in `meta.ts` before writing any component:
++- **Problem:** the ONE narrow problem, and who has it (`problem`).
++- **Type:** `reveals-problem` (shows them a problem they didn't know about), `sample` (solves a recurring problem once) or `one-step` (one step of a bigger process).
++- **Delivery:** prefer a tool (calculator, score, fillable sheet) over plain information. Tools are valued higher than information.
++- **Worth paying for:** if you could charge for it, it is good enough. Free but thin loses trust.
++- **Bridge:** write `bridge` (heading, body, cta): the next problem this reveals and how HireTrack solves it. It appears on the page automatically.
++- **Formats:** offer at least two (e.g. web tool plus CSV download or print/PDF) and list them in `formats`.
++- **Headlines:** write 3 or more H1 variants in `headlines`. `h1` is the live one. Test headline first, then image, then subheadline.
++- **CTAs:** top (jump to the tool, automatic), middle (the email unlock inside the tool), end (HireTrack buttons, automatic). Bridge and footer buttons carry UTM tags through `productLink()` so each bonus can be measured.
++- **Unlock rule:** whatever sits behind the email must be MORE useful than what is free, and should use the visitor's own numbers (for example a personal report), not generic tips.
++
+ ## Steps
+ 1. Pick a URL-friendly slug (e.g. `ghosting-risk-score`).
+ 2. Create `src/bonuses/<slug>/meta.ts` (copy `cost-per-hire-calculator/meta.ts`). Fill in:
+    - `title`, `h1`, `description` (under 160 chars, include the main search phrase)
+    - `audience`, `format`, `keywords`, `datePublished`
++   - `type`, `problem`, `headlines`, `formats`, `bridge`: see the design section above (all required)
+    - `intro`: one crawlable paragraph (what it is, who it is for, why it helps)
+    - `faq`: 3 to 5 real questions with plain answers
+ 3. Create `src/bonuses/<slug>/<Component>.tsx` (add `"use client"` if it uses state). Reuse classes from `globals.css`.
+ 4. Register it in `src/bonuses/index.ts` (import meta + component, add one line to `bonuses`; remove it from `planned`).
+ 5. Create `src/bonuses/<slug>/posts.md` with the Instagram carousel + caption + hashtags and the LinkedIn post. Use `{{LINK}}` for the page URL.
+-6. Update `CHECKLIST.md`.
++6. Update `CHECKLIST.md`, including the quality gate columns.
+ 7. Run `npm run build`. Fix any errors.
+ 
+ ## Toolkit (standard for every bonus)
+ Each bonus should be self-contained: add a server-rendered `Toolkit.tsx` (registered as `Extra` in `src/bonuses/index.ts`) with reference tables, formulas, glossary and a checklist, so visitors never need to leave the page. Mark planning assumptions as assumptions and attach a source link to every published figure.
+ 
++## Quality gate (tick all before marking a bonus done)
++Existing standards: self-contained toolkit, real sourced statistics, SEO page and FAQ, Instagram and LinkedIn posts, `npm run build` passes.
++Hormozi additions: narrow problem named, solves it completely, reveals the next problem, bridge to HireTrack on the page, type set, 2+ formats, 3+ headline variants (one tested), CTA at top, middle and end, unlock is more useful than the free part.
++
+ ## Rules
+ - Calculations use only numbers the visitor enters. Published statistics may be shown for context in `benchmarks`, but every one needs a named source, a year, a working link, and a region/currency label. Prefer primary sources, flag secondary ones, and never repeat a figure whose origin you cannot verify.
+ - Anything about law or country rules must say "confirm with local counsel".
+diff --git a/CHECKLIST.md b/CHECKLIST.md
+index 913a4bb..fd01d9b 100644
+--- a/CHECKLIST.md
++++ b/CHECKLIST.md
+@@ -1,16 +1,17 @@
+ # Bonus checklist
+ 
+-Status per bonus: asset built, SEO meta + FAQ, social posts written, build passes.
++Status per bonus: asset built, SEO meta + FAQ, social posts written, build passes, plus the Hormozi quality gate (see BONUS_GUIDE.md).
++Build order follows Hormozi's ranking: tools first, then services, then information.
+ 
+-| Status | # | Bonus | Slug |
+-|---|---|---|---|
+-| [x] | 1 | Cost-per-hire calculator | `cost-per-hire-calculator` |
+-| [ ] | 2 | Candidate ghosting risk score | |
+-| [ ] | 3 | Interview scorecard pack | |
+-| [ ] | 4 | Recruiter KPI dashboard sheet | |
+-| [ ] | 5 | Client onboarding kit | |
+-| [ ] | 6 | Multi-language follow-up message pack | |
+-| [ ] | 7 | Hiring-in-a-new-country question list | |
+-| [ ] | 8 | 7-day hiring email course | |
+-| [ ] | 9 | Free pipeline audit | |
+-| [ ] | 10 | Live "fix my pipeline" session | |
++| Status | # | Bonus | Slug | Type | Delivery | Bridge to HireTrack | Formats (2+) | Headlines tested | Notes |
++|---|---|---|---|---|---|---|---|---|---|
++| [x] | 1 | Cost-per-hire calculator | `cost-per-hire-calculator` | reveals-problem | Tool | [x] | [x] web, CSV, print | [ ] | Personal report unlock added. Run the headline test. |
++| [ ] | 2 | Candidate ghosting risk score | | reveals-problem | Tool | [ ] | [ ] | [ ] | Build order 1 |
++| [ ] | 4 | Recruiter KPI dashboard sheet | | one-step | Tool (sheet) | [ ] | [ ] | [ ] | Build order 2. Must not fully replace HireTrack. |
++| [ ] | 9 | Free pipeline audit | | reveals-problem | Service (automate) | [ ] | [ ] | [ ] | Build order 3. Form plus auto-generated report first. |
++| [ ] | 6 | Multi-language follow-up message pack | | sample | Information | [ ] | [ ] | [ ] | Build order 4 |
++| [ ] | 3 | Interview scorecard pack | | one-step | Information (make fillable) | [ ] | [ ] | [ ] | Build order 5 |
++| [ ] | 7 | Hiring-in-a-new-country question list | | reveals-problem | Information | [ ] | [ ] | [ ] | Build order 6. Say "confirm with local counsel". |
++| [ ] | 5 | Client onboarding kit | | one-step | Information | [ ] | [ ] | [ ] | Build order 7. Narrow to "first 48 hours with a new client". |
++| [ ] | 8 | 7-day hiring email course | | n/a (nurture) | Email | [ ] | [ ] | [ ] | Not a first-touch magnet. Build after 3+ bonuses exist. |
++| [ ] | 10 | Live "fix my pipeline" session | | sample | Service | [ ] | [ ] | [ ] | Closing offer for engaged leads (2+ bonuses done). |
+diff --git a/src/app/bonuses/[slug]/page.tsx b/src/app/bonuses/[slug]/page.tsx
+index 9c4946b..856b720 100644
+--- a/src/app/bonuses/[slug]/page.tsx
++++ b/src/app/bonuses/[slug]/page.tsx
+@@ -2,7 +2,7 @@ import type { Metadata } from "next";
+ import Link from "next/link";
+ import { notFound } from "next/navigation";
+ import { bonuses, getBonus } from "@/bonuses";
+-import { SITE, abs } from "@/lib/site";
++import { SITE, abs, productLink } from "@/lib/site";
+ import JsonLd from "@/components/JsonLd";
+ import ShareBar from "@/components/ShareBar";
+ 
+@@ -35,8 +35,14 @@ export default async function BonusPage({ params }: P) {
+       <p className="crumbs"><Link href="/">Bonuses</Link> / {m.title}</p>
+       <h1>{m.h1}</h1>
+       <p className="lead">{m.intro}</p>
+-      <Component />
++      <p><a className="btn alt" href="#tool">Use the free {m.format.toLowerCase()} ↓</a></p>
++      <div id="tool"><Component /></div>
+       {Extra && <Extra />}
++      <section className="card" style={{ marginTop: 24 }} aria-label="Next step">
++        <h2>{m.bridge.heading}</h2>
++        <p>{m.bridge.body}</p>
++        <a className="btn" href={productLink(m.slug, "bridge")} target="_blank" rel="noopener">{m.bridge.cta}</a>
++      </section>
+       {m.benchmarks && (
+         <section className="card" style={{ marginTop: 24 }} aria-label="Industry benchmarks">
+           <h2>Industry benchmarks for context</h2>
+@@ -59,7 +65,7 @@ export default async function BonusPage({ params }: P) {
+         <section style={{ marginTop: 24 }}><h2>More free tools</h2>
+           <div className="cards">{others.map((o) => <Link key={o.meta.slug} href={`/bonuses/${o.meta.slug}`} className="card"><div className="emoji" aria-hidden="true">{o.meta.emoji}</div><h2>{o.meta.title}</h2><p>{o.meta.description}</p></Link>)}</div></section>
+       )}
+-      <p style={{ marginTop: 24 }}><a className="btn" href={SITE.productUrl} target="_blank" rel="noopener">Track every hire in HireTrack</a></p>
++      <p style={{ marginTop: 24 }}><a className="btn" href={productLink(m.slug, "footer")} target="_blank" rel="noopener">Track every hire in HireTrack</a></p>
+     </>
+   );
+ }
+diff --git a/src/app/globals.css b/src/app/globals.css
+index ed1985f..b5efb9d 100644
+--- a/src/app/globals.css
++++ b/src/app/globals.css
+@@ -39,3 +39,6 @@ footer{border-top:3px solid var(--line);padding:20px 0;color:var(--mut);font-siz
+ .check{display:flex;gap:8px;align-items:flex-start;font-weight:400;font-size:.8rem;margin:10px 0 0}.check input{width:auto;margin-top:3px;flex:none}
+ .bench{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:14px;margin:12px 0}
+ h3{font-size:1rem;margin:20px 0 6px}.scroll{overflow-x:auto}th{text-align:left;font-size:.8rem;border-bottom:2px solid var(--line);padding:6px 8px 6px 0}.card td{padding-right:8px;vertical-align:top}.card table td:last-child{font-weight:400;text-align:left}.two{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}dt{margin-top:8px}dd{margin:0 0 0 0;color:var(--mut)}
++
++.report .row2{display:flex;flex-wrap:wrap;gap:8px;margin-top:6px}.report p{margin:8px 0}
++@media print{body *{visibility:hidden}#report,#report *{visibility:visible}#report{position:absolute;left:0;top:0;width:100%}.report .row2{display:none}}
+diff --git a/src/bonuses/cost-per-hire-calculator/Calculator.tsx b/src/bonuses/cost-per-hire-calculator/Calculator.tsx
+index b97d926..abb447f 100644
+--- a/src/bonuses/cost-per-hire-calculator/Calculator.tsx
++++ b/src/bonuses/cost-per-hire-calculator/Calculator.tsx
+@@ -15,6 +15,15 @@ const FIELDS: [string, string, string?][] = [
+   ["onb", "Onboarding and training cost"], ["vm", "Value of role vs salary (1 = same)"],
+ ];
+ 
++// What to do about each cost driver. Advice, not statistics. "track" is the HireTrack action for that driver.
++const DRIVER: Record<string, { what: string; a: string; b: string; track: string }> = {
++  "Agency fee": { what: "Agency fees are the largest share of your cost per hire.", a: "Negotiate the fee for repeat or high-volume roles, and compare it with sourcing in-house for roles you fill often.", b: "Check how long the replacement guarantee lasts, so a quick exit does not mean paying twice.", track: "Log which roles and sources came through agencies, so you can compare cost per hire by source." },
++  "Internal time": { what: "Your own team's time is the largest share of your cost per hire.", a: "Agree a scorecard before the first interview to cut interview rounds.", b: "Batch screening calls and reply to candidates within 24 hours so you do not redo work with drifting candidates.", track: "Track hours and drop-off per stage for each role to see where time is spent without result." },
++  "Ads and tools": { what: "Job ads and tools are the largest share of your cost per hire.", a: "Compare spend on each job board with the number of hires it produced.", b: "Drop channels that bring volume but no hires.", track: "Record the source of hire for every candidate." },
++  "Onboarding": { what: "Onboarding is the largest share of your cost per hire.", a: "Standardise a first-week checklist so each hire needs less manager time.", b: "Prepare equipment and access before day one.", track: "Track onboarding completion and exits in the first 90 days for each hire." },
++  "Vacant seat": { what: "The empty seat is the largest share of your cost per hire, so speed matters most.", a: "Set a days-to-fill target for each role and review stalled roles weekly.", b: "Follow up with candidates within 24 hours. Silence is how good candidates drift away.", track: "Track every candidate stage in one place and set a goal for each role and recruiter." },
++};
++
+ export default function Calculator() {
+   const [s, setS] = useState({ cur: "INR", sal: 600000, days: 45, hrs: 40, rate: 500, ads: 8000, fee: 0, onb: 15000, vm: 1, mo: 4, un: 50 });
+   const [email, setEmail] = useState("");
+@@ -36,9 +45,27 @@ export default function Calculator() {
+     const total = direct + s.onb + vac;
+     const bad = direct + vac + ((s.sal / 12) * s.mo * Math.min(s.un, 100)) / 100;
+     const parts: [string, number, string][] = [["Agency fee", agency, "#f27d72"], ["Internal time", internal, "#f3b45a"], ["Ads and tools", s.ads, "#6fb7e9"], ["Onboarding", s.onb, "#7fcf8e"], ["Vacant seat", vac, "#b58de0"]];
+-    return { f, total, bad, parts, direct };
++    const top = parts.reduce((a, b) => (b[1] > a[1] ? b : a));
++    return { f, total, bad, parts, direct, top, pct: total ? Math.round((top[1] / total) * 100) : 0 };
+   }, [s]);
+ 
++  function download() {
++    const q = (v: string | number) => `"${String(v).replace(/"/g, '""')}"`;
++    const rows: (string | number)[][] = [
++      ["HireTrack cost-per-hire report"], ["Currency", s.cur], [],
++      ["Inputs"], ["Annual salary", s.sal], ["Days the role stays open", s.days], ["Internal hours per hire", s.hrs], ["Cost per internal hour", s.rate],
++      ["Job ads and tools per hire", s.ads], ["Agency fee (% of salary)", s.fee], ["Onboarding and training cost", s.onb], ["Value factor", s.vm],
++      ["Months before a bad hire leaves", s.mo], ["% of that time unproductive", s.un], [],
++      ["Result"], ...r.parts.map((p) => [p[0], Math.round(p[1])]),
++      ["Total cost to fill one role", Math.round(r.total)], ["Direct cost per hire (agency + internal time + ads)", Math.round(r.direct)],
++      ["Estimated cost of one bad hire", Math.round(r.bad)], ["Biggest cost driver", `${r.top[0]} (${r.pct}%)`],
++    ];
++    const csv = rows.map((row) => row.map(q).join(",")).join("\n");
++    const a = document.createElement("a");
++    a.href = URL.createObjectURL(new Blob([csv], { type: "text/csv;charset=utf-8" }));
++    a.download = "cost-per-hire-report.csv"; a.click(); URL.revokeObjectURL(a.href);
++  }
++
+   async function unlock(e: React.FormEvent) {
+     e.preventDefault();
+     setSt("sending");
+@@ -81,22 +108,28 @@ export default function Calculator() {
+           : <p className="hint">Published benchmarks below are in US dollars. Convert your direct cost per hire ({r.f(r.direct)}) at today&apos;s rate to compare.</p>}
+         <div className="bad"><b>If this hire leaves early, one bad hire costs about</b><div className="big small">{r.f(r.bad)}</div>
+           <p className="hint">Includes hiring again plus the salary paid for unproductive months.</p></div>
+-        <h2 style={{ marginTop: 16 }}>3. Get the full breakdown</h2>
++        <h2 style={{ marginTop: 16 }}>3. Get your personal report</h2>
++        {st !== "done" && <p className="hint">Free: a one-page report of your numbers with your biggest cost driver and what to do about it. Print it or save it as a CSV.</p>}
+         {st === "done" ? (
+-          <ol className="tips">
+-            <li><b>Track every candidate stage in one place.</b> Stalled roles are where vacancy cost grows fastest.</li>
+-            <li><b>Set a goal per role and recruiter.</b> A visible days-to-fill target keeps roles moving.</li>
+-            <li><b>Follow up inside 24 hours.</b> Silence is how good candidates drift away.</li>
+-            <li><b>Standardise scorecards.</b> Fewer interview rounds, fewer mis-hires.</li>
+-            <li><b>Review monthly.</b> Re-run this calculator with real data from your tracker.</li>
+-          </ol>
++          <div className="report" id="report">
++            <h2>Your cost-per-hire report ({s.cur})</h2>
++            <p><b>Total to fill one role: {r.f(r.total)}</b>. One bad hire could cost about {r.f(r.bad)}.</p>
++            <table><tbody>{r.parts.map((p) => <tr key={p[0]}><td>{p[0]}</td><td>{r.f(p[1])}</td></tr>)}</tbody></table>
++            <h3>Your biggest cost driver: {r.top[0]} ({r.pct}% of the total)</h3>
++            <p>{DRIVER[r.top[0]].what}</p>
++            <ol className="tips"><li>{DRIVER[r.top[0]].a}</li><li>{DRIVER[r.top[0]].b}</li></ol>
++            <p><b>What to track next:</b> {DRIVER[r.top[0]].track}</p>
++            {s.cur === "USD" && <p className="hint">Your direct cost per hire is {r.f(r.direct)}. SHRM&apos;s 2026 US medians are $1,300 (non-executive) and $15,000 (executive). Definitions differ, so treat this as a rough guide.</p>}
++            <p className="hint">Based only on the numbers you entered. Made with the free HireTrack cost-per-hire calculator.</p>
++            <div className="row2"><button type="button" className="btn alt" onClick={download}>Download CSV</button><button type="button" className="btn alt" onClick={() => window.print()}>Print or save as PDF</button></div>
++          </div>
+         ) : (
+           <form onSubmit={unlock}>
+             <input type="email" required placeholder="you@company.com" aria-label="Work email" value={email} onChange={(e) => setEmail(e.target.value)} />
+             <input className="hp" tabIndex={-1} autoComplete="off" aria-hidden="true" name="website" value={hp} onChange={(e) => setHp(e.target.value)} />
+             <label className="check"><input type="checkbox" required checked={cp} onChange={(e) => setCp(e.target.checked)} /><span>{CONSENT_TEXT.DATA_PROCESSING} <Link href="/privacy" target="_blank">Privacy Policy</Link> (required)</span></label>
+             <label className="check"><input type="checkbox" checked={cm} onChange={(e) => setCm(e.target.checked)} /><span>{CONSENT_TEXT.MARKETING_EMAILS} (optional)</span></label>
+-            <button className="btn" disabled={st === "sending"}>{st === "sending" ? "Unlocking..." : "Unlock 5 ways to cut this cost"}</button>
++            <button className="btn" disabled={st === "sending"}>{st === "sending" ? "Unlocking..." : "Unlock my report"}</button>
+             {st === "error" && <p className="hint" role="alert">{msg}</p>}
+           </form>
+         )}
+diff --git a/src/bonuses/cost-per-hire-calculator/meta.ts b/src/bonuses/cost-per-hire-calculator/meta.ts
+index c3dfac0..fecc82f 100644
+--- a/src/bonuses/cost-per-hire-calculator/meta.ts
++++ b/src/bonuses/cost-per-hire-calculator/meta.ts
+@@ -17,6 +17,19 @@ export const meta: BonusMeta = {
+     { q: "Does this calculator use industry statistics?", a: "The calculation uses only the numbers you enter. The page also lists published benchmarks, with sources, so you can see how your result compares. Most published figures are US medians in US dollars." },
+   ],
+   datePublished: "2026-10-10",
++  type: "reveals-problem",
++  problem: "HR teams and agencies do not know the true cost of filling one role, because they count only the agency fee.",
++  headlines: [
++    "What does one hire really cost?",
++    "Your cost per hire is higher than you think: check it in 60 seconds",
++    "What does one hire really cost you? Find out in 60 seconds",
++  ],
++  formats: ["Web calculator", "CSV download", "Print or save as PDF"],
++  bridge: {
++    heading: "Know your number? Now find where it leaks.",
++    body: "Cost per hire grows fastest when roles stall, follow-ups slip and nobody can see where candidates drop off. HireTrack tracks every candidate stage, sets goals per role and recruiter, and shows which roles are costing you the most days.",
++    cta: "See how HireTrack tracks every hire",
++  },
+   benchmarks: [
+     { value: "$1,300", label: "Median cost per hire, non-executive roles", detail: "Up slightly from $1,200 in 2025.", source: "SHRM 2026 Recruiting Benchmarking", url: "https://www.shrm.org/topics-tools/research/recruiting-benchmarking/full-data-brief", year: 2026 },
+     { value: "$15,000", label: "Median cost per hire, executive roles", detail: "Up from $10,600 in 2025 and $5,000 in 2017.", source: "SHRM 2026 Recruiting Benchmarking", url: "https://www.shrm.org/topics-tools/research/recruiting-benchmarking/full-data-brief", year: 2026 },
+diff --git a/src/lib/site.ts b/src/lib/site.ts
+index da73800..6a15b3b 100644
+--- a/src/lib/site.ts
++++ b/src/lib/site.ts
+@@ -6,4 +6,13 @@ export const SITE = {
+   company: "Codzen",
+   companyUrl: "https://www.codzentechnology.com",
+ };
++// Link to the product with UTM tags so each bonus and button placement can be measured.
++export const productLink = (slug: string, placement: string) => {
++  try {
++    const u = new URL(SITE.productUrl);
++    u.searchParams.set("utm_source", "bonuses"); u.searchParams.set("utm_medium", "lead-magnet");
++    u.searchParams.set("utm_campaign", slug); u.searchParams.set("utm_content", placement);
++    return u.toString();
++  } catch { return SITE.productUrl; }
++};
+ export const abs = (path: string) => `${SITE.url}${path}`;
+diff --git a/src/lib/types.ts b/src/lib/types.ts
+index 51dbe26..f4c4288 100644
+--- a/src/lib/types.ts
++++ b/src/lib/types.ts
+@@ -14,4 +14,10 @@ export type BonusMeta = {
+   datePublished: string; // YYYY-MM-DD
+   benchmarks?: Benchmark[]; // published stats shown for context only (always with source, year, link)
+   benchmarkNote?: string;
++  // Lead magnet design (Hormozi $100M Leads). Fill in before publishing; see BONUS_GUIDE.md.
++  type: "reveals-problem" | "sample" | "one-step"; // what kind of lead magnet this is
++  problem: string;      // the ONE narrow problem this solves, and for whom
++  headlines: string[];  // 3+ H1 variants to test; h1 is the live one
++  formats: string[];    // e.g. ["Web calculator", "CSV download", "Print / PDF"]
++  bridge: { heading: string; body: string; cta: string }; // the next problem this reveals and how HireTrack solves it
+ };
