@@ -16,11 +16,11 @@ export default function Privacy() {
         <h2>What we collect</h2>
         <p>When you unlock a tool we store your email address, which tool you unlocked, and the date and time. We also record your consent choices (what you agreed to, the exact wording, the policy version and when). For security and to prove consent, we store a one-way hash of your IP address (not the address itself) and your browser&apos;s user-agent text.</p>
         <h2>Why we collect it</h2>
-        <p>To deliver the content you asked for and, only if you tick the optional box, to send you hiring tips and product updates. We rely on your consent.</p>
+        <p>To deliver the content you asked for, including by email, and, only if you tick the optional box, to send you hiring tips and product updates. We rely on your consent.</p>
         <h2>Your choices</h2>
         <p>The marketing box is optional and unticked by default. You can withdraw consent at any time and ask us to access or delete your data{contact ? <>: <a href={`mailto:${contact}`}>{contact}</a></> : "."}</p>
         <h2>Retention and sharing</h2>
-        <p>We keep your data for as long as needed for the purposes above or until you ask us to delete it. We do not sell your data. It is stored with our database provider and may be passed to the email or CRM tools we use to contact you.</p>
+        <p>We keep your data for as long as needed for the purposes above or until you ask us to delete it. We do not sell your data. It is stored with our database provider. We use Resend to send you the content you asked for (such as your report), and your email address is passed to Resend for that purpose. It may also be passed to the CRM tools we use to contact you if you opted in to marketing.</p>
       </div>
     </>
   );

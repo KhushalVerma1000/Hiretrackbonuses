@@ -3,12 +3,13 @@ import { createHash } from "crypto";
 import { db } from "@/lib/db";
 import { getBonus } from "@/bonuses";
 import { CONSENT_TEXT, POLICY_VERSION } from "@/lib/consent";
+import { sendBonusEmail, type EmailResult } from "@/lib/email/send";
 
 export const runtime = "nodejs";
 const bad = (error: string, status = 400) => NextResponse.json({ ok: false, error }, { status });
 
 export async function POST(req: Request) {
-  let b: { email?: string; bonus?: string; website?: string; consentProcessing?: boolean; consentMarketing?: boolean; path?: string };
+  let b: { email?: string; bonus?: string; website?: string; consentProcessing?: boolean; consentMarketing?: boolean; path?: string; payload?: unknown };
   try { b = await req.json(); } catch { return bad("invalid request"); }
   if (b.website) return NextResponse.json({ ok: true }); // honeypot: silently drop bots
 
@@ -24,11 +25,14 @@ export async function POST(req: Request) {
   const ipHash = ip && salt ? createHash("sha256").update(salt + ip).digest("hex") : null;
   const userAgent = req.headers.get("user-agent")?.slice(0, 300) ?? null;
   const sourcePath = typeof b.path === "string" ? b.path.slice(0, 200) : null;
+  const payload = JSON.stringify(b.payload ?? null).length <= 4000 ? b.payload : undefined; // inputs for the personalised email, size-capped
   const base = { policyVersion: POLICY_VERSION, bonusSlug, sourcePath, ipHash, userAgent };
 
+  let leadId: string;
   try {
     const prisma = db();
     const lead = await prisma.lead.upsert({ where: { email }, update: {}, create: { email } });
+    leadId = lead.id;
     await prisma.$transaction([
       prisma.bonusSignup.upsert({ where: { leadId_bonusSlug: { leadId: lead.id, bonusSlug } }, update: {}, create: { leadId: lead.id, bonusSlug } }),
       prisma.consent.createMany({ data: [
@@ -46,5 +50,8 @@ export async function POST(req: Request) {
     fetch(hook, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ email, bonus: bonusSlug, marketingConsent: marketing, createdAt: new Date().toISOString() }) })
       .catch((e) => console.error("[lead] webhook failed", e));
   }
-  return NextResponse.json({ ok: true });
+
+  // Delivery email (Resend). Never blocks the unlock: the lead is already saved, so a failure only means no email.
+  const mail: EmailResult = await sendBonusEmail({ leadId, email, bonusSlug, payload });
+  return NextResponse.json({ ok: true, email: mail });
 }

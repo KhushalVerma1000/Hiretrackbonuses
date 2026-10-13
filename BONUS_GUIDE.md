@@ -28,6 +28,14 @@ A lead magnet is a complete solution to one narrow problem that reveals the next
 6. Update `CHECKLIST.md`, including the quality gate columns.
 7. Run `npm run build`. Fix any errors.
 
+## Email delivery (automatic, optional personalisation)
+Every bonus already gets a generic delivery email through Resend once the lead form posts to `/api/lead`. To make it personal (for example, the visitor's own report):
+1. Send the visitor's inputs as `payload` in the `/api/lead` POST (keep it under about 4 KB). Never send HTML or text to be emailed.
+2. Create `src/bonuses/<slug>/email.ts` exporting `buildEmail: BonusEmailBuilder`. Re-validate the payload, recompute every number on the server (put the maths in a shared `calc.ts` like the cost-per-hire bonus), and return `{ subject, preheader, html, text, attachments? }`. Return `null` for a bad payload and the generic email is sent instead. Use `esc()` for any dynamic text and the helpers in `src/lib/email/layout.ts`.
+3. Register it: `{ meta, Component, Extra, email: buildEmail }` in `src/bonuses/index.ts`.
+4. In the component, read `email` from the `/api/lead` response (`"sent"` or `"recent"`) and tell the visitor to check their inbox.
+The shell, bridge block, footer and unsubscribe link are added for you.
+
 ## Toolkit (standard for every bonus)
 Each bonus should be self-contained: add a server-rendered `Toolkit.tsx` (registered as `Extra` in `src/bonuses/index.ts`) with reference tables, formulas, glossary and a checklist, so visitors never need to leave the page. Mark planning assumptions as assumptions and attach a source link to every published figure.
 

@@ -15,6 +15,7 @@ model Lead {
   updatedAt DateTime      @updatedAt
   signups   BonusSignup[]
   consents  Consent[]
+  emails    EmailLog[]
 }
 
 /// Which bonus a lead unlocked, and when. One row per (lead, bonus).
@@ -51,4 +52,25 @@ model Consent {
   createdAt     DateTime    @default(now())
 
   @@index([leadId, type, createdAt])
+}
+
+enum EmailStatus {
+  SENT
+  FAILED
+}
+
+/// One row per email we try to send (bonus delivery now, nurture sequences later).
+/// Used for rate limiting (stops the form being used to spam someone's inbox) and for support.
+model EmailLog {
+  id         String      @id @default(cuid())
+  leadId     String
+  lead       Lead        @relation(fields: [leadId], references: [id], onDelete: Cascade)
+  bonusSlug  String
+  kind       String      // e.g. BONUS_DELIVERY
+  status     EmailStatus
+  providerId String?     // Resend email id
+  error      String?
+  createdAt  DateTime    @default(now())
+
+  @@index([leadId, bonusSlug, createdAt])
 }
