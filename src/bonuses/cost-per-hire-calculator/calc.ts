@@ -33,7 +33,7 @@ export function compute(s: Inputs) {
   const vac = (s.sal / 260) * s.vm * s.days, direct = agency + internal + s.ads;
   const total = direct + s.onb + vac;
   const bad = direct + vac + ((s.sal / 12) * s.mo * Math.min(s.un, 100)) / 100;
-  const parts: [string, number, string][] = [["Agency fee", agency, "#f27d72"], ["Internal time", internal, "#f3b45a"], ["Ads and tools", s.ads, "#6fb7e9"], ["Onboarding", s.onb, "#7fcf8e"], ["Vacant seat", vac, "#b58de0"]];
+  const parts: [string, number, string][] = [["Agency fee", agency, "#24478f"], ["Internal time", internal, "#2f6fd0"], ["Ads and tools", s.ads, "#7fb0ee"], ["Onboarding", s.onb, "#0f8b7d"], ["Vacant seat", vac, "#d98e04"]];
   const top = parts.reduce((a, b) => (b[1] > a[1] ? b : a));
   return { f, total, bad, parts, direct, top, pct: total ? Math.round((top[1] / total) * 100) : 0 };
 }

@@ -70,7 +70,7 @@ export default function Calculator() {
         <p className="hint">Total cost to fill one role</p>
         <div className="big">{r.f(r.total)}</div>
         <div className="stack">{r.parts.map((p) => <i key={p[0]} style={{ width: `${r.total ? (p[1] / r.total) * 100 : 0}%`, background: p[2] }} />)}</div>
-        <table><tbody>{r.parts.map((p) => <tr key={p[0]}><td><span className="dot" style={{ background: p[2] }} />{p[0]}</td><td>{r.f(p[1])}</td></tr>)}</tbody></table>
+        <table className="amt"><tbody>{r.parts.map((p) => <tr key={p[0]}><td><span className="dot" style={{ background: p[2] }} />{p[0]}</td><td>{r.f(p[1])}</td></tr>)}</tbody></table>
         {s.cur === "USD"
           ? <p className="hint">Your direct cost per hire (agency fee + internal time + ads) is {r.f(r.direct)}. SHRM&apos;s 2026 US medians are $1,300 for non-executive and $15,000 for executive roles. Definitions differ, so treat this as a rough guide.</p>
           : <p className="hint">Published benchmarks below are in US dollars. Convert your direct cost per hire ({r.f(r.direct)}) at today&apos;s rate to compare.</p>}
@@ -83,7 +83,7 @@ export default function Calculator() {
             <h2>Your cost-per-hire report ({s.cur})</h2>
             {mailed && <p className="hint" role="status">{mailed === "sent" ? `We also emailed this report to ${email}. Check your spam folder if it does not arrive.` : `We emailed this report to ${email} a moment ago. Check your inbox or spam folder.`}</p>}
             <p><b>Total to fill one role: {r.f(r.total)}</b>. One bad hire could cost about {r.f(r.bad)}.</p>
-            <table><tbody>{r.parts.map((p) => <tr key={p[0]}><td>{p[0]}</td><td>{r.f(p[1])}</td></tr>)}</tbody></table>
+            <table className="amt"><tbody>{r.parts.map((p) => <tr key={p[0]}><td>{p[0]}</td><td>{r.f(p[1])}</td></tr>)}</tbody></table>
             <h3>Your biggest cost driver: {r.top[0]} ({r.pct}% of the total)</h3>
             <p>{DRIVER[r.top[0]].what}</p>
             <ol className="tips"><li>{DRIVER[r.top[0]].a}</li><li>{DRIVER[r.top[0]].b}</li></ol>

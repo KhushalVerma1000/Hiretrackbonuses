@@ -7,10 +7,10 @@ export const esc = (v: unknown) =>
   String(v ?? "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#39;");
 
 // Small helpers so bonus builders stay readable. All styles are inline because email clients drop <style>.
-const INK = "#4a2c2c", MUT = "#7d604d", LINE = "#6a3b3b", BG = "#fdf6e6", CARD = "#fffdf6", HOT = "#f27d72", SOFT = "#f3e2bf";
+const INK = "#0e1f33", MUT = "#4f5f76", LINE = "#d3dbe6", BG = "#f4f6fa", CARD = "#ffffff", ACC = "#1553c7", SOFT = "#eaf0f8";
 export const h2 = (t: string) => `<h2 style="margin:22px 0 8px;font-size:18px;line-height:1.3;color:${INK}">${esc(t)}</h2>`;
 export const p = (t: string, muted = false) => `<p style="margin:0 0 12px;font-size:15px;line-height:1.55;color:${muted ? MUT : INK}">${esc(t)}</p>`;
-export const big = (t: string) => `<div style="font-size:34px;font-weight:800;line-height:1.2;color:${INK};margin:4px 0 8px">${esc(t)}</div>`;
+export const big = (t: string) => `<div style="font-size:34px;font-weight:700;line-height:1.2;color:${INK};margin:4px 0 8px">${esc(t)}</div>`;
 export const list = (items: string[]) =>
   `<ol style="margin:0 0 12px;padding-left:20px;font-size:15px;line-height:1.55;color:${INK}">${items.map((i) => `<li style="margin-bottom:6px">${esc(i)}</li>`).join("")}</ol>`;
 export const table = (rows: [string, string][]) =>
@@ -18,7 +18,7 @@ export const table = (rows: [string, string][]) =>
     .map(([a, b]) => `<tr><td style="padding:8px 0;border-bottom:1px solid ${SOFT};font-size:15px;color:${INK}">${esc(a)}</td><td align="right" style="padding:8px 0;border-bottom:1px solid ${SOFT};font-size:15px;font-weight:700;color:${INK}">${esc(b)}</td></tr>`)
     .join("")}</table>`;
 export const button = (label: string, href: string) =>
-  `<table role="presentation" cellpadding="0" cellspacing="0" style="margin:14px 0"><tr><td style="background:${HOT};border:3px solid ${LINE};border-radius:14px"><a href="${esc(href)}" style="display:inline-block;padding:11px 20px;font-size:15px;font-weight:800;color:#ffffff;text-decoration:none">${esc(label)}</a></td></tr></table>`;
+  `<table role="presentation" cellpadding="0" cellspacing="0" style="margin:14px 0"><tr><td style="background:${ACC};border-radius:10px"><a href="${esc(href)}" style="display:inline-block;padding:11px 20px;font-size:15px;font-weight:600;color:#ffffff;text-decoration:none">${esc(label)}</a></td></tr></table>`;
 
 // Wraps a bonus's body in the shared shell. `unsubscribeUrl` is optional (omitted when no secret is configured).
 export function renderEmail(meta: BonusMeta, body: BonusEmailContent, unsubscribeUrl: string | null) {
@@ -26,14 +26,14 @@ export function renderEmail(meta: BonusMeta, body: BonusEmailContent, unsubscrib
   const bridgeUrl = productLink(meta.slug, "email");
   const unsub = unsubscribeUrl ? ` <a href="${esc(unsubscribeUrl)}" style="color:${MUT}">Unsubscribe</a>.` : "";
   const html = `<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>${esc(body.subject)}</title></head>
-<body style="margin:0;padding:0;background:${BG};font-family:'Trebuchet MS','Segoe UI',Arial,sans-serif">
+<body style="margin:0;padding:0;background:${BG};font-family:'Segoe UI',-apple-system,'Helvetica Neue',Arial,sans-serif">
 <div style="display:none;max-height:0;overflow:hidden;opacity:0;color:transparent">${esc(body.preheader)}</div>
 <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:${BG}"><tr><td align="center" style="padding:24px 12px">
 <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="max-width:600px">
-<tr><td style="padding:0 4px 12px;font-size:14px;font-weight:800;color:${INK}">${esc(meta.emoji)} ${esc(SITE.name)}</td></tr>
-<tr><td style="background:${CARD};border:3px solid ${LINE};border-radius:20px;padding:22px">
+<tr><td style="padding:0 4px 12px;font-size:14px;font-weight:700;color:${INK}">${esc(SITE.name)}</td></tr>
+<tr><td style="background:${CARD};border:1px solid ${LINE};border-radius:12px;padding:24px">
 ${body.html}
-<div style="border-top:2px dashed ${SOFT};margin:22px 0 0;padding-top:4px">${h2(meta.bridge.heading)}${p(meta.bridge.body)}${button(meta.bridge.cta, bridgeUrl)}</div>
+<div style="border-top:1px solid ${LINE};margin:22px 0 0;padding-top:4px">${h2(meta.bridge.heading)}${p(meta.bridge.body)}${button(meta.bridge.cta, bridgeUrl)}</div>
 </td></tr>
 <tr><td style="padding:14px 4px;font-size:12px;line-height:1.5;color:${MUT}">You are getting this because you asked for the ${esc(meta.title)} on <a href="${esc(pageUrl)}" style="color:${MUT}">${esc(SITE.url.replace(/^https?:\/\//, ""))}</a>. Sent by ${esc(SITE.company)}, the makers of HireTrack. <a href="${esc(abs("/privacy"))}" style="color:${MUT}">Privacy Policy</a>.${unsub}</td></tr>
 </table></td></tr></table></body></html>`;

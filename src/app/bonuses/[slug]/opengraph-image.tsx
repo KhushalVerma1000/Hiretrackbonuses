@@ -10,14 +10,14 @@ export default async function Image({ params }: { params: Promise<{ slug: string
   const m = getBonus((await params).slug)?.meta;
   return new ImageResponse(
     (
-      <div style={{ width: "100%", height: "100%", display: "flex", flexDirection: "column", justifyContent: "space-between", background: "#fdf6e6", border: "16px solid #6a3b3b", padding: 56, color: "#4a2c2c" }}>
+      <div style={{ width: "100%", height: "100%", display: "flex", flexDirection: "column", justifyContent: "space-between", background: "#0e1f33", padding: 64, color: "#ffffff" }}>
         <div style={{ display: "flex", fontSize: 34, fontWeight: 700 }}>HireTrack Bonuses</div>
         <div style={{ display: "flex", flexDirection: "column" }}>
-          <div style={{ width: 96, height: 96, borderRadius: 48, background: "#a8e6cf", border: "6px solid #6a3b3b", marginBottom: 16 }} />
+          <div style={{ width: 72, height: 8, borderRadius: 4, background: "#6fa6ff", marginBottom: 28 }} />
           <div style={{ fontSize: 70, fontWeight: 800, lineHeight: 1.1 }}>{m?.title}</div>
-          <div style={{ fontSize: 34, marginTop: 16, color: "#7d604d" }}>{m?.audience}</div>
+          <div style={{ fontSize: 34, marginTop: 16, color: "#a3b3cb" }}>{m?.audience}</div>
         </div>
-        <div style={{ display: "flex", fontSize: 30, background: "#f27d72", color: "#fff", padding: "10px 24px", borderRadius: 40, alignSelf: "flex-start" }}>Free tool</div>
+        <div style={{ display: "flex", fontSize: 30, background: "#1553c7", color: "#fff", padding: "12px 26px", borderRadius: 10, alignSelf: "flex-start" }}>Free tool</div>
       </div>
     ),
     size,
