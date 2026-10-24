@@ -46,7 +46,7 @@ export default async function BonusPage({ params }: P) {
       {m.benchmarks && (
         <section className="card" style={{ marginTop: 24 }} aria-label="Industry benchmarks">
           <h2>Industry benchmarks for context</h2>
-          <p className="hint">Published figures, mostly from US employers and in US dollars. Your own numbers drive the calculator above.</p>
+          <p className="hint">Published figures for context, each linked to its source. Check the region and year of every figure. Your own answers drive the result above.</p>
           <div className="bench">
             {m.benchmarks.map((x) => (
               <div key={x.label}><div className="big small">{x.value}</div><b>{x.label}</b>

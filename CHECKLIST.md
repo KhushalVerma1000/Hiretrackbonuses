@@ -6,7 +6,7 @@ Build order follows Hormozi's ranking: tools first, then services, then informat
 | Status | # | Bonus | Slug | Type | Delivery | Bridge to HireTrack | Formats (2+) | Headlines tested | Notes |
 |---|---|---|---|---|---|---|---|---|---|
 | [x] | 1 | Cost-per-hire calculator | `cost-per-hire-calculator` | reveals-problem | Tool | [x] | [x] web, CSV, print | [ ] | Personal report unlock added. Run the headline test. |
-| [ ] | 2 | Candidate ghosting risk score | | reveals-problem | Tool | [ ] | [ ] | [ ] | Build order 1 |
+| [x] | 2 | Candidate ghosting risk score | `ghosting-risk-score` | reveals-problem | Tool | [x] | [x] web, ranked shortlist, CSV, print | [ ] | Personal rescue-plan unlock added. Weights are assumptions: validate against real outcomes. Run the headline test. |
 | [ ] | 4 | Recruiter KPI dashboard sheet | | one-step | Tool (sheet) | [ ] | [ ] | [ ] | Build order 2. Must not fully replace HireTrack. |
 | [ ] | 9 | Free pipeline audit | | reveals-problem | Service (automate) | [ ] | [ ] | [ ] | Build order 3. Form plus auto-generated report first. |
 | [ ] | 6 | Multi-language follow-up message pack | | sample | Information | [ ] | [ ] | [ ] | Build order 4 |
