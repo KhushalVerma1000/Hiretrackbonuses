@@ -18,7 +18,7 @@ export default function KpiDashboard() {
   const [cm, setCm] = useState(false);
   const [st, setSt] = useState<"idle" | "sending" | "done" | "error">("idle");
   const [msg, setMsg] = useState("");
-  const [mailed, setMailed] = useState<"sent" | "recent" | "">("");
+  const [mailed, setMailed] = useState<"sent" | "recent" | "off" | "failed" | "">("");
 
   const res = useMemo(() => analyseAll(rows), [rows]);
   const touch = (fn: (r: Item[]) => Item[]) => { setRows(fn); setExample(false); };
@@ -42,7 +42,7 @@ export default function KpiDashboard() {
       // Only the numeric counts are sent. Recruiter names stay in this browser.
       const res = await fetch("/api/lead", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ email, bonus: "recruiter-kpi-dashboard", website: hp, consentProcessing: cp, consentMarketing: cm, path: window.location.pathname, payload: { recs: live.map((x) => x.r) } }) });
       const j = await res.json().catch(() => ({}));
-      if (res.ok) { setMailed(j.email === "sent" || j.email === "recent" ? j.email : ""); setSt("done"); } else { setMsg(j.error === "consent required" ? "Please tick the required consent box." : "Something went wrong. Please try again."); setSt("error"); }
+      if (res.ok) { setMailed(["sent", "recent", "off", "failed"].includes(j.email) ? j.email : ""); setSt("done"); } else { setMsg(j.error === "consent required" ? "Please tick the required consent box." : "Something went wrong. Please try again."); setSt("error"); }
     } catch { setMsg("Something went wrong. Please try again."); setSt("error"); }
   }
 
@@ -122,7 +122,7 @@ export default function KpiDashboard() {
         {st === "done" ? (
           <div className="report" id="report">
             <h2>Your recruiter coaching plan</h2>
-            {mailed && <p className="hint" role="status">{mailed === "sent" ? `We also emailed this plan to ${email}. Check your spam folder if it does not arrive.` : `We emailed this plan to ${email} a moment ago. Check your inbox or spam folder.`}</p>}
+            {mailed && <p className="hint" role="status">{mailed === "sent" ? `We also emailed this plan to ${email}. Check your spam folder if it does not arrive.` : mailed === "recent" ? `We emailed this plan to ${email} a moment ago. Check your inbox or spam folder.` : "We could not email this plan just now, but it is all on this page. You can still download or print it."}</p>}
             {res.ranked.map((x) => (
               <div key={x.id}>
                 <h3>{x.label || "Recruiter"}: {x.a.status === 0 ? "not enough data yet" : `${pct(x.a.closing)} closing (${STATUS[x.a.status].toLowerCase()})`}</h3>

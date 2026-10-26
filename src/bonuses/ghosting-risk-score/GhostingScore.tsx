@@ -18,7 +18,7 @@ export default function GhostingScore() {
   const [cm, setCm] = useState(false);
   const [st, setSt] = useState<"idle" | "sending" | "done" | "error">("idle");
   const [msg, setMsg] = useState("");
-  const [mailed, setMailed] = useState<"sent" | "recent" | "">("");
+  const [mailed, setMailed] = useState<"sent" | "recent" | "off" | "failed" | "">("");
 
   const a = useMemo(() => analyse(c), [c]);
   const setSel = (k: Key | "st") => (e: React.ChangeEvent<HTMLSelectElement>) => setC({ ...c, [k]: Number(e.target.value) });
@@ -46,7 +46,7 @@ export default function GhostingScore() {
       // Only the numeric answers are sent. Candidate labels stay in this browser.
       const res = await fetch("/api/lead", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ email, bonus: "ghosting-risk-score", website: hp, consentProcessing: cp, consentMarketing: cm, path: window.location.pathname, payload: { cands: rows.map((r) => r.c) } }) });
       const j = await res.json().catch(() => ({}));
-      if (res.ok) { setMailed(j.email === "sent" || j.email === "recent" ? j.email : ""); setSt("done"); } else { setMsg(j.error === "consent required" ? "Please tick the required consent box." : "Something went wrong. Please try again."); setSt("error"); }
+      if (res.ok) { setMailed(["sent", "recent", "off", "failed"].includes(j.email) ? j.email : ""); setSt("done"); } else { setMsg(j.error === "consent required" ? "Please tick the required consent box." : "Something went wrong. Please try again."); setSt("error"); }
     } catch { setMsg("Something went wrong. Please try again."); setSt("error"); }
   }
 
@@ -96,7 +96,7 @@ export default function GhostingScore() {
         {st === "done" ? (
           <div className="report" id="report">
             <h2>Your ghosting risk report</h2>
-            {mailed && <p className="hint" role="status">{mailed === "sent" ? `We also emailed this report to ${email}. Check your spam folder if it does not arrive.` : `We emailed this report to ${email} a moment ago. Check your inbox or spam folder.`}</p>}
+            {mailed && <p className="hint" role="status">{mailed === "sent" ? `We also emailed this report to ${email}. Check your spam folder if it does not arrive.` : mailed === "recent" ? `We emailed this report to ${email} a moment ago. Check your inbox or spam folder.` : "We could not email this report just now, but it is all on this page. You can still download or print it."}</p>}
             {ranked.map((r) => (
               <div key={r.id}>
                 <h3>{r.label}: {r.a.score}/100 ({BAND_INFO[r.a.band].name})</h3>

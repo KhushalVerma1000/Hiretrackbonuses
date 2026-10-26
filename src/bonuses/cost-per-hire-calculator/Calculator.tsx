@@ -22,7 +22,7 @@ export default function Calculator() {
   const [cp, setCp] = useState(false);
   const [cm, setCm] = useState(false);
   const [msg, setMsg] = useState("");
-  const [mailed, setMailed] = useState<"sent" | "recent" | "">("");
+  const [mailed, setMailed] = useState<"sent" | "recent" | "off" | "failed" | "">("");
   const set = (k: string) => (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) =>
     setS({ ...s, [k]: k === "cur" ? e.target.value : Math.max(0, Number(e.target.value) || 0) });
 
@@ -40,7 +40,7 @@ export default function Calculator() {
     try {
       const res = await fetch("/api/lead", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ email, bonus: "cost-per-hire-calculator", website: hp, consentProcessing: cp, consentMarketing: cm, path: window.location.pathname, payload: s }) });
       const j = await res.json().catch(() => ({}));
-      if (res.ok) { setMailed(j.email === "sent" || j.email === "recent" ? j.email : ""); setSt("done"); } else { setMsg(j.error === "consent required" ? "Please tick the required consent box." : "Something went wrong. Please try again."); setSt("error"); }
+      if (res.ok) { setMailed(["sent", "recent", "off", "failed"].includes(j.email) ? j.email : ""); setSt("done"); } else { setMsg(j.error === "consent required" ? "Please tick the required consent box." : "Something went wrong. Please try again."); setSt("error"); }
     } catch { setSt("error"); }
   }
 
@@ -81,7 +81,7 @@ export default function Calculator() {
         {st === "done" ? (
           <div className="report" id="report">
             <h2>Your cost-per-hire report ({s.cur})</h2>
-            {mailed && <p className="hint" role="status">{mailed === "sent" ? `We also emailed this report to ${email}. Check your spam folder if it does not arrive.` : `We emailed this report to ${email} a moment ago. Check your inbox or spam folder.`}</p>}
+            {mailed && <p className="hint" role="status">{mailed === "sent" ? `We also emailed this report to ${email}. Check your spam folder if it does not arrive.` : mailed === "recent" ? `We emailed this report to ${email} a moment ago. Check your inbox or spam folder.` : "We could not email this report just now, but it is all on this page. You can still download or print it."}</p>}
             <p><b>Total to fill one role: {r.f(r.total)}</b>. One bad hire could cost about {r.f(r.bad)}.</p>
             <table className="amt"><tbody>{r.parts.map((p) => <tr key={p[0]}><td>{p[0]}</td><td>{r.f(p[1])}</td></tr>)}</tbody></table>
             <h3>Your biggest cost driver: {r.top[0]} ({r.pct}% of the total)</h3>
