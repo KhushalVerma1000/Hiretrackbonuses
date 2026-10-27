@@ -13,6 +13,10 @@ import { meta as kpi } from "./recruiter-kpi-dashboard/meta";
 import KpiDashboard from "./recruiter-kpi-dashboard/KpiDashboard";
 import KpiToolkit from "./recruiter-kpi-dashboard/Toolkit";
 import { buildEmail as kpiEmail } from "./recruiter-kpi-dashboard/email";
+import { meta as audit } from "./pipeline-audit/meta";
+import PipelineAudit from "./pipeline-audit/PipelineAudit";
+import AuditToolkit from "./pipeline-audit/Toolkit";
+import { buildEmail as auditEmail } from "./pipeline-audit/email";
 
 export type Bonus = { meta: BonusMeta; Component: ComponentType; Extra?: ComponentType; email?: BonusEmailBuilder };
 // Extra = server-rendered toolkit/reference section. email = optional builder for a personalised delivery email;
@@ -23,6 +27,7 @@ export const bonuses: Bonus[] = [
   { meta: costPerHire, Component: CostPerHire, Extra: CostPerHireToolkit, email: costPerHireEmail },
   { meta: ghosting, Component: Ghosting, Extra: GhostingToolkit, email: ghostingEmail },
   { meta: kpi, Component: KpiDashboard, Extra: KpiToolkit, email: kpiEmail },
+  { meta: audit, Component: PipelineAudit, Extra: AuditToolkit, email: auditEmail },
 ];
 
 export const getBonus = (slug: string) => bonuses.find((b) => b.meta.slug === slug);

@@ -8,7 +8,7 @@ Build order follows Hormozi's ranking: tools first, then services, then informat
 | [x] | 1 | Cost-per-hire calculator | `cost-per-hire-calculator` | reveals-problem | Tool | [x] | [x] web, CSV, print | [ ] | Personal report unlock added. Run the headline test. |
 | [x] | 2 | Candidate ghosting risk score | `ghosting-risk-score` | reveals-problem | Tool | [x] | [x] web, ranked shortlist, CSV, print | [ ] | Personal rescue-plan unlock added. Weights are assumptions: validate against real outcomes. Run the headline test. |
 | [x] | 4 | Recruiter KPI dashboard sheet | `recruiter-kpi-dashboard` | one-step | Tool | [x] | [x] web, CSV (Excel/Sheets), print | [ ] | Personal coaching-plan unlock added. Thresholds and reference rates are assumptions: replace with real outcome data. Not a full tracker (manual entry, 10 recruiters). Run the headline test. |
-| [ ] | 9 | Free pipeline audit | | reveals-problem | Service (automate) | [ ] | [ ] | [ ] | Build order 3. Form plus auto-generated report first. |
+| [x] | 9 | Free pipeline audit | `pipeline-audit` | reveals-problem | Service (automate) | [x] | [x] web, email report, CSV, print | [ ] | Self-serve form plus auto-generated report. Target days and verdict thresholds are assumptions. Manual review for best-fit leads still to add. Run the headline test. |
 | [ ] | 6 | Multi-language follow-up message pack | | sample | Information | [ ] | [ ] | [ ] | Build order 4 |
 | [ ] | 3 | Interview scorecard pack | | one-step | Information (make fillable) | [ ] | [ ] | [ ] | Build order 5 |
 | [ ] | 7 | Hiring-in-a-new-country question list | | reveals-problem | Information | [ ] | [ ] | [ ] | Build order 6. Say "confirm with local counsel". |
